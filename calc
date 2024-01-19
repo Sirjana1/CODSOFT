@@ -1,0 +1,54 @@
+todos = []
+
+def show_todos():
+    if not todos:
+        print("todos not found")
+    else:
+        print("todo list:")
+    for index, task in enumerate(todos, start=1):
+        print(f"{index}. {task}")
+
+def add_todos():
+    addlist = input("Enter the todo task:")
+    todos.append(addlist)
+    print(f"Task {addlist} added successfully")
+
+def remove_todos():
+    show_todos()
+    if not todos:
+        return
+    try:
+        index = int(input("Enter the number of index you want to delete:"))
+        if 1 <= index <= len(todos):
+            removed_task = todos.pop(index - 1)
+            print(f"Task {removed_task} removed from todo list")
+        else:
+            print("Invalid task number")
+
+    except ValueError:
+        print("Invalid input. Please input a number")
+
+def main():
+    while True:
+        print("To do list menu")
+        print("1. Show todo task")
+        print("2. Add todo task")
+        print("3. Remove todo task")
+        print("4. Quit")
+
+        choice = input("Enter your choice:")
+
+        if choice == '1':
+            show_todos()
+        elif choice == '2':
+            add_todos()
+        elif choice == '3':
+            remove_todos()
+        elif choice == '4':
+            print("Exiting terminal,")
+            break
+        else:
+            print("Invalid input")
+
+if __name__ == "__main__":
+    main()

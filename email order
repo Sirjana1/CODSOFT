@@ -1,0 +1,37 @@
+from flask import Flask, render_template, request
+from flask_mail import Mail, Message
+
+app = Flask(__name__)
+
+# Configure Flask-Mail
+app.config['MAIL_SERVER'] = 'smtp.example.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'your-email@example.com'
+app.config['MAIL_PASSWORD'] = 'your-email-password'
+app.config['MAIL_DEFAULT_SENDER'] = 'your-email@example.com'
+
+mail = Mail(app)
+
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        # Extract order information from the form
+        customer_name = request.form['customer_name']
+        item_name = request.form['item_name']
+        quantity = request.form['quantity']
+
+        # Send email notification
+        send_email(customer_name, item_name, quantity)
+
+    return render_template('index.html')
+
+def send_email(customer_name, item_name, quantity):
+    subject = 'New Order'
+    body = f'Customer Name: {customer_name}\nItem: {item_name}\nQuantity: {quantity}'
+
+    message = Message(subject, recipients=['your-email@gmail.com'], body=body)
+    mail.send(message)
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepali Typing Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nepali Typing Example</h1>
+    <label for="englishInput">Type in English:</label>
+    <input type="text" id="englishInput" oninput="convertToNepali()">
+    <br>
+    <label for="nepaliOutput">Nepali Output:</label>
+    <div id="nepaliOutput"></div>
+
+    <script>
+        function convertToNepali() {
+            const englishInput = document.getElementById('englishInput').value;
+            const nepaliOutput = document.getElementById('nepaliOutput');
+            const nepaliText = transliterateToNepali(englishInput);
+            nepaliOutput.innerText = nepaliText;
+        }
+
+        function transliterateToNepali(englishText) {
+            // This is a simple example, and you may need a more sophisticated transliteration algorithm.
+            // You can replace this with a library that provides better transliteration.
+            const transliterationMap = {
+                'a': 'अ',
+                'b': 'ब',
+                'c': 'क',
+                'd': 'ड',
+                't':'त्वा',
+                'v': 'तेरो',
+                // Add more mappings as needed...
+            };
+
+            return englishText.split('').map(char => transliterationMap[char] || char).join('');
+        }
+    </script>
+</body>
+</html>
